@@ -1,0 +1,11 @@
+{
+  "name": "polynom",
+  "version": "0.0.1",
+  "author": "Dean McNamee <dean@gmail.com>",
+  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/deanm/polynom"
+  },
+  "main": "polynom.js"
+}
