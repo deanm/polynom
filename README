@@ -21,15 +21,15 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 IN THE SOFTWARE.
 
 
-Polynom is a small JavaScript libraries for polynomial expressions of exact
+Polynom is a small JavaScript library for polynomial expressions of exact
 rational numbers.  It includes a basic Rational class for dealing with numbers
-of the type of a/b where a and b are integers.  A Polynomial is then simply a
-list of the rational coeffecients for a specific degree.  Some basic calculus
-operations (power law for polynomials) is implemented, allowing to integrate
+of the form a/b where a and b are integers.  A Polynomial is then simply a
+list of the rational coefficients for a specific degree.  Some basic calculus
+operations (power law for polynomials) are implemented, allowing to integrate
 and differentiate polynomials.
 
 The Rational numbers are currently implemented on top of JavaScript number
-primitives, which are doubles so have a limited range of integers that can be
+primitives, which are doubles having a limited range of integers that can be
 represented.  In the future, the Rational number support should either be
-extended to implement a big integer library, or an external library such as
+extended to implement a big integers, or an external library such as
 js-numbers (implementation of the scheme numeric tower) should be used.
