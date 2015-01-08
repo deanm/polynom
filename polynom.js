@@ -385,42 +385,6 @@ Polynomial.createFromNumber = function(v) {
   return new Polynomial(0, [Rational.createFromNumber(v)]);
 };
 
-if (!module.parent) {
-  /*
-  var p = new Polynomial(3, [1, 4, 3, 5]);
-  var p1 = p.integrate();
-  var p2 = p1.diff();
-  //console.log(p.pretty('t'));
-  console.log(p1.pretty('t'));
-  console.log(p2.pretty('t'));
-  //console.log(p1.add(p2).pretty('t'));
-  //console.log(p1.toJS('t'));
-
-  var p3 = new Polynomial(2, [0, 1, 1]);
-  var p4 = new Polynomial(2, [1, 1, 1]);
-  //console.log(p3.mul(p4).pretty('t'));
-  //console.log(p1.mul(p2).pretty('t'));
-  console.log(p3.toJS());
-  console.log(p4.toJS());
-  console.log(p3.subst(p4).toJS());
-  */
-
-  // '-9261/6859 + 26460/6859*t + -25200/6859*t^2 + 8000/6859*t^3',
-  // '-21/19 + 20/19*t' ]
-  var r0 = new Rational(194481,130321);
-  console.log(r0.add(r0).toString());
-  return;
-  var p6 = new Polynomial(3, [new Rational(-9261, 6859),
-                              new Rational(26460, 6859),
-                              new Rational(-25200, 6859),
-                              new Rational(-8000, 6859)]);
-  var p7 = new Polynomial(1, [new Rational(-21, 19),
-                              new Rational(20, 19)]);
-
-  console.log(p6.mul(p7).pretty());
-
-}
-
 function isRational(r) {
   return r instanceof Rational;
 }
