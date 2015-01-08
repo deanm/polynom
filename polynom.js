@@ -168,32 +168,32 @@ Rational.prototype.toUnicode = function() {
 };
 
 
-function Polynomial(degree, coef) {
-  this.degree = degree;
+function Polynomial(coef) {
+  var l = coef.length;
 
-  if (coef === undefined) {
-    coef = new Array(degree + 1);
-    for (var i = 0, il = coef.length; i < il; ++i)
-      coef[i] = new Rational(0, 1);
-  } else {
-    for (var i = 0, il = coef.length; i < il; ++i) {
-      if (typeof(coef[i]) === 'number')
-        coef[i] = Rational.createFromNumber(coef[i]);
-    }
-  }
+  if (l < 1) throw 'Polynomial must be at least degree 0.';
 
-  if (coef.length !== degree + 1)
-    throw 'Coefficients array incorrect length for degree.';
+  var c = new Array(l);
+  for (var i = 0; i < l; ++i)
+    c[i] = coef[i].dup();
 
-  this.c = coef;
+  this.degree = l - 1;
+  this.c = c;
 }
 
 Polynomial.createFromQ = function(r) {
-  return new Polynomial(0, [r]);
+  return new Polynomial([r]);
 };
 
 Polynomial.createFromZ = function(v) {
-  return new Polynomial(0, [Rational.createFromZ(v)]);
+  return new Polynomial([Rational.createFromZ(v)]);
+};
+
+Polynomial.createDegree = function(d) {
+  var c = new Array(d + 1);
+  for (var i = 0, il = c.length; i < il; ++i)
+    c[i] = new Rational(0, 1);
+  return new Polynomial(c);
 };
 
 Polynomial.prototype.mulZ$ = function(s) {
@@ -226,7 +226,7 @@ Polynomial.prototype.mulQ = function(r) {
 
 Polynomial.prototype.addP = function(p) {
   var d = this.degree > p.degree ? this.degree : p.degree;
-  var n = new Polynomial(d);
+  var n = Polynomial.createDegree(d);
   var c = this.c;
   for (var i = 0; i <= d; ++i) {
     if (i > this.degree) {
@@ -256,11 +256,11 @@ Polynomial.prototype.mulP = function(p) {  // super O(n^2).
 
   while (c.length !== 1 && c[c.length - 1].isZero()) c.pop();
 
-  return new Polynomial(c.length - 1, c);
+  return new Polynomial(c);
 };
 
 Polynomial.prototype.integrate = function() {
-  var res = new Polynomial(this.degree + 1);
+  var res = Polynomial.createDegree(this.degree + 1);
   res[0] = new Rational(0, 1);
   var c = this.c;
   for (var i = 0, il = c.length; i < il; ++i) {
@@ -272,9 +272,9 @@ Polynomial.prototype.integrate = function() {
 
 Polynomial.prototype.diff = function() {
   if (this.degree === 0)
-    return new Polynomial(0, [new Rational(0, 1)]);
+    return new Polynomial([new Rational(0, 1)]);
 
-  var res = new Polynomial(this.degree - 1);
+  var res = Polynomial.createDegree(this.degree - 1);
   var c = this.c;
   for (var i = 1, il = c.length; i < il; ++i) {
     var r = c[i];
@@ -288,11 +288,11 @@ Polynomial.prototype.dup = function() {
   for (var i = 0, il = c.length; i < il; ++i) {
     c[i] = this.c[i].dup();
   }
-  return new Polynomial(c.length - 1, c);
+  return new Polynomial(c);
 };
 
 Polynomial.prototype.substP = function(p) {  // composition better name?
-  var c = new Polynomial(0, [this.c[0]]);
+  var c = new Polynomial([this.c[0]]);
   var pp = p;
   for (var i = 1, il = this.c.length; i < il; ++i) {
     if (i !== 1) pp = pp.mulP(p);  // Computationally brutal.
