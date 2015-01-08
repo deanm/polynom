@@ -345,45 +345,6 @@ Polynomial.prototype.toJS = function(sym) {
   return parts.join(' + ');
 };
 
-Polynomial.prototype.toUnicode = function(sym) {
-  sym = sym === undefined ? 't' : sym;
-  var str = '';
-  var parts = [ ];
-  for (var i = 0, il = coef.length; i < il; ++i) {
-    if (coef[i].isZero())  // zero term
-      continue;
-
-    var up = '';
-    switch (i) {
-      case 0:
-        parts.push(coef[0].toUnicode());
-        continue;
-      case 1: break;
-      //case 1: up = "\u00b9"; break;
-      /*
-      case 2: up = "\u00b2"; break;
-      case 3: up = "\u00b3"; break;
-      case 4: up = "\u2074"; break;
-      case 5: up = "\u2075"; break;
-      case 6: up = "\u2076"; break;
-      case 7: up = "\u2077"; break;
-      case 8: up = "\u2078"; break;
-      case 9: up = "\u2079"; break;
-      */
-      default:
-        var up = '^' + i;
-        break;
-    }
-
-    if (coef[i].isOne()) {
-      parts.push(sym + up);
-    } else {
-      parts.push(coef[i].toUnicode() + '*' + sym + up);
-    }
-  }
-  return parts.join(' + ').replace(/ \+ \-/g, ' - ').replace(/ 1\*/g, ' ');
-};
-
 Polynomial.prototype.evalR = function(t) {
   var c = this.c;
   var res = c[0].toR();
