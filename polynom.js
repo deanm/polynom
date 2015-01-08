@@ -152,9 +152,8 @@ function Rational(num, denom) {
   };
 }
 
-Rational.createFromNumber = function(n) {
-  if (n !== (n|0)) console.trace('xx');
-  if (n !== (n|0)) throw 'xx';
+Rational.createFromInteger = function(n) {
+  if (n !== (n|0)) { console.trace('xx'); throw 'xx'; }
   return new Rational(n, 1);
 }
 
@@ -381,8 +380,8 @@ Polynomial.createFromRational = function(r) {
   return new Polynomial(0, [r]);
 };
 
-Polynomial.createFromNumber = function(v) {
-  return new Polynomial(0, [Rational.createFromNumber(v)]);
+Polynomial.createFromInteger = function(v) {
+  return new Polynomial(0, [Rational.createFromInteger(v)]);
 };
 
 function isRational(r) {
